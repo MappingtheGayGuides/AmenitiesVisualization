@@ -1,6 +1,7 @@
 # global.R
 library(shiny)
 library(shinydashboard)
+data <- readRDS("data.rds")
 amenity.list <- c("Any", "(*)", "(B)")
 # Store the state abbreviations in the 'states' variable
 states <- c(

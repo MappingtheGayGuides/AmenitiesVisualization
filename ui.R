@@ -1,6 +1,7 @@
 # ui.R
 library(shiny)
 library(shinyWidgets)
+library(magrittr)
 
 # Define the UI for the Shiny app
 ui <- fluidPage(
@@ -13,18 +14,17 @@ ui <- fluidPage(
            h2("Welcome to my Shiny App"),
            p("This is a 12-column section using a Bootstrap theme."),
            # Add your content here
-          
-           pickerInput(
-             inputId = "amenity.selector", 
-             label = "Amenity:", 
-             inline = TRUE,
-             choices = amenity.list, 
-             selected = "Any",
-             options = pickerOptions(
-               actionsBox = TRUE, 
-               size = 10,
-               selectedTextFormat = "count > 3"
-             ), 
+           virtualSelectInput(
+             inputId = "amenity.selector",
+             label = "Amenity:",
+             selected = "All Amenities",
+             choices = list(
+               "All Amenities",
+               "Women, Girls, and Ladies" = c("(G)", "(L)", "(W)"),
+               "Racial Minorities" = c("(B)", "(MRC-AF)", "(MRC-L)")
+             ),
+             showValueAsTags = TRUE,
+             search = FALSE,
              multiple = TRUE
            ),
            pickerInput(
@@ -45,7 +45,7 @@ ui <- fluidPage(
              label = "Year:", 
              inline = TRUE,
              choices = 1965:1995, 
-             selected = 1980,
+             selected = 1965,
              options = pickerOptions(
                actionsBox = TRUE, 
                size = 10,
@@ -56,6 +56,8 @@ ui <- fluidPage(
            
            h3(textOutput("choices.helpertext")),  
            # For example: plotOutput("my_plot")
+           p(textOutput("num.locations")),
+          p(textOutput("test.filter"))           
     )
   )
 )
